@@ -1,17 +1,26 @@
 package com.example.edapphack;
 
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.support.v4.widget.DrawerLayout;
 
-public class SubjectActivity extends Activity {
+public class SubjectActivity extends ActionBarActivity {
+	private ActionBarDrawerToggle drawerToggle;
+	private DrawerLayout drawerLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_subject);
+		
+		drawerLayout = (DrawerLayout)findViewById(R.id.subject_drawer);
+		drawerToggle = new ActionBarDrawerToggle (this, drawerLayout,R.string.drawer_open, R.string.drawer_close);
+		drawerLayout.setDrawerListener(drawerToggle);
 	}
 
 	@Override
@@ -36,4 +45,13 @@ public class SubjectActivity extends Activity {
 	public void goToHome (View Button){
 		finish();
 	}
+	
+	protected void onPostCreate (Bundle bundle){
+		drawerToggle.syncState();		
+	}
+	
+	public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 }
